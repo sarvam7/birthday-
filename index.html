@@ -106,27 +106,26 @@ Happy Birthday in advance! ❤️
 </div>
 
 <script>
-let imgs=[],i=0;
-
-function photos(e){
-imgs=[...e.target.files];
-if(!imgs.length)return;
-i=0;
-show();
-}
+let imgs=[
+  "photo1.jpg",
+  "photo2.jpg",
+  "photo3.jpg",
+  "photo4.jpg",
+  "photo5.jpg"
+];
+let i=0;
 
 function show(){
-let img=document.getElementById("preview");
-img.src=URL.createObjectURL(imgs[i]);
-img.style.display="block";
-if(imgs.length>1){
-setTimeout(()=>{
-i=(i+1)%imgs.length;
-show();
-},3000);
-}
-}
+  let img=document.getElementById("preview");
+  img.src=imgs[i];
+  img.style.display="block";
 
+  setTimeout(()=>{
+    i=(i+1)%imgs.length;
+    show();
+  },3000);
+}
+show();
 function countdown(){
 let now=new Date(),year=now.getFullYear();
 let b=new Date(year,11,26);
