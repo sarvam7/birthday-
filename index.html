@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Happy Birthday ❤️</title>
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;min-height:100vh;overflow-x:hidden;text-align:center;
+font-family:Arial,sans-serif;color:white;
+background:radial-gradient(circle at top,#5b0b4d,#12001c 55%,#030006);
+}
+.page{padding:30px 18px;position:relative;z-index:2}
+h1{
+font-size:45px;margin:25px 0 5px;
+text-shadow:0 0 10px #ff4da6,0 0 30px #ff1493;
+animation:pulse 1.5s infinite alternate;
+}
+@keyframes pulse{to{transform:scale(1.06)}}
+.subtitle{font-size:20px;color:#ffd1e8}
+.card{
+max-width:430px;margin:25px auto;padding:22px;
+border-radius:28px;background:#ffffff12;
+border:1px solid #ffffff30;
+backdrop-filter:blur(15px);
+box-shadow:0 0 35px #ff149355;
+}
+#preview{
+width:100%;max-height:430px;object-fit:cover;
+border-radius:20px;display:none;
+box-shadow:0 0 25px #ff149377;
+}
+input{
+width:100%;margin:12px 0;padding:14px;
+border-radius:15px;border:1px solid #ffffff33;
+background:#ffffff12;color:white;
+}
+.message{line-height:1.7;font-size:17px;color:#ffe5f1}
+.count{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin:20px 0}
+.box{background:#ff149322;border:1px solid #ff69b455;border-radius:14px;padding:10px;min-width:65px}
+.num{font-size:24px;font-weight:bold}
+.small{font-size:10px;color:#ffc8df}
+button{
+border:0;border-radius:30px;padding:14px 25px;
+font-size:17px;font-weight:bold;color:white;
+background:linear-gradient(90deg,#ff1493,#9b30ff);
+box-shadow:0 0 20px #ff149388;
+}
+.heart{
+position:fixed;bottom:-30px;font-size:25px;
+animation:up 6s linear forwards;z-index:1;
+}
+@keyframes up{
+0%{transform:translateY(0);opacity:0}
+15%{opacity:1}
+100%{transform:translateY(-110vh) rotate(360deg);opacity:0}
+}
+#surprise{display:none;margin-top:20px;font-size:20px;color:#ffd1e7}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+<h1>🎂 Happy Birthday 🎂</h1>
+<div class="subtitle">To My Favourite Person ❤️</div>
+
+<div class="card">
+
+<input type="file" accept="image/*" multiple onchange="photos(event)">
+
+<img id="preview">
+
+<div class="message">
+✨ Today is a special day because it's the birthday of someone
+who is really special to me. ❤️
+<br><br>
+I hope your day is filled with happiness, smiles and beautiful
+memories.
+<br><br>
+And maybe... you don't know this,
+but you are one of my favourite people. 💕
+</div>
+
+<h3>⏳ Countdown to 26 December</h3>
+
+<div class="count">
+<div class="box"><div class="num" id="d">0</div><div class="small">DAYS</div></div>
+<div class="box"><div class="num" id="h">0</div><div class="small">HOURS</div></div>
+<div class="box"><div class="num" id="m">0</div><div class="small">MINUTES</div></div>
+<div class="box"><div class="num" id="s">0</div><div class="small">SECONDS</div></div>
+</div>
+
+<button onclick="surprise()">💌 Open My Message</button>
+
+<div id="surprise">
+🌸 You deserve all the happiness in the world. 🌸
+<br><br>
+Happy Birthday in advance! ❤️
+<br><br>
+— From someone who really likes you 💕
+</div>
+
+</div>
+</div>
+
+<script>
+let imgs=[],i=0;
+
+function photos(e){
+imgs=[...e.target.files];
+if(!imgs.length)return;
+i=0;
+show();
+}
+
+function show(){
+let img=document.getElementById("preview");
+img.src=URL.createObjectURL(imgs[i]);
+img.style.display="block";
+if(imgs.length>1){
+setTimeout(()=>{
+i=(i+1)%imgs.length;
+show();
+},3000);
+}
+}
+
+function countdown(){
+let now=new Date(),year=now.getFullYear();
+let b=new Date(year,11,26);
+if(now>b)b=new Date(year+1,11,26);
+let x=b-now;
+d.innerText=Math.floor(x/86400000);
+h.innerText=Math.floor(x/3600000)%24;
+m.innerText=Math.floor(x/60000)%60;
+s.innerText=Math.floor(x/1000)%60;
+}
+setInterval(countdown,1000);countdown();
+
+setInterval(()=>{
+let x=document.createElement("div");
+x.className="heart";
+x.innerText=["❤️","💕","💖","💗","✨","🌸"][Math.floor(Math.random()*6)];
+x.style.left=Math.random()*100+"%";
+x.style.animationDuration=(4+Math.random()*4)+"s";
+document.body.appendChild(x);
+setTimeout(()=>x.remove(),8000);
+},400);
+
+function surprise(){
+document.getElementById("surprise").style.display="block";
+for(let i=0;i<25;i++){
+setTimeout(()=>{
+let x=document.createElement("div");
+x.className="heart";x.innerText="❤️";
+x.style.left="50%";x.style.bottom="50%";
+document.body.appendChild(x);
+setTimeout(()=>x.remove(),6000);
+},i*70);
+}
+}
+</script>
+</body>
+</html>
